@@ -64,15 +64,11 @@ const login_post = async (req, res) => {
     try{
         const user = await User.login(email, password);
         const token = createToken(user._id);
-        // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-        // res.setHeader('Access-Control-Allow-Credentials',true);
         res.cookie('jwt', token, {httpOnly: true, maxAge: maxAge* 1000, overwrite: true});
         res.status(200).json({ user });
     }
     catch (err){
         const errors = handleErrors(err);
-        // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-        // res.setHeader('Access-Control-Allow-Credentials',true);
         res.status(400).json({ errors });
     }
 }

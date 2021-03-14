@@ -9,6 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
+// app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
@@ -24,9 +25,11 @@ connection.once('open', () => {
 
 const eventCardRouter = require('./routes/eventCard.route.js');
 const userRouter = require('./routes/user.route.js');
+const graphRouter = require('./routes/graphEvent.route.js');
 
 app.use('/eventCard', eventCardRouter);
 app.use('/user', userRouter);
+app.use('/graphEvent',graphRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
